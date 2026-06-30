@@ -1,4 +1,4 @@
-const secondValue = 3
+const secondValue = 10
 const timeout = secondValue * 1000;
 const api_key = "sk-1234567890abcdef";
 
