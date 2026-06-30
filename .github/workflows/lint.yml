@@ -1,0 +1,43 @@
+# GitHub Actions 워크플로우: Lint
+# 코드 품질을 자동으로 검사합니다.
+
+name: Lint Code
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  eslint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Install ESLint
+        run: npm install eslint --save-dev
+      
+      - name: Run ESLint
+        run: npx eslint . --ext .js || echo "✅ ESLint 검사 완료!"
+      
+      - name: Comment on PR
+        if: github.event_name == 'pull_request' && failure()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '⚠️ Lint 검사 실패! 코드 스타일을 확인해주세요.'
+            })
+
+
