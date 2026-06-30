@@ -1,5 +1,5 @@
-const value1 = 11;
-const value2 = 2;
+const value1 = 111;
+const value2 = 222;
 const value3 = 3;
 const value4 = 4;
 const value5 = 5;
