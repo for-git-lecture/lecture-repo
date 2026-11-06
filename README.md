@@ -1,3 +1,3 @@
 # lecture-repo
 
-hello
+hello world
